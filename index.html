@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전효종 | AIDIN ROBOTICS</title>
+<meta name="description" content="전효종 — AIDIN ROBOTICS 그리퍼개발팀 연구원 디지털 명함">
+<style>
+  :root{
+    --red:#D01F2E; --ink:#1a1a1a; --gray:#6b6b6b; --line:#eceaea;
+    --bg:#f4f2f0; --card:#ffffff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+    background:var(--bg); color:var(--ink); -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:520px;margin:0 auto;padding:28px 18px 0}
+
+  /* header */
+  .lang{display:flex;justify-content:flex-end}
+  .lang button{
+    border:none;background:#fff;border-radius:999px;padding:8px 14px;
+    font-size:13px;font-weight:700;color:var(--gray);cursor:pointer;
+    box-shadow:0 1px 4px rgba(0,0,0,.06);
+  }
+  .lang button span.on{color:var(--red)}
+  .logo{text-align:center;margin:6px 0 26px}
+  .logo .l1{font-size:34px;font-weight:800;letter-spacing:2px;color:var(--red)}
+  .logo .l2{font-size:38px;font-weight:800;letter-spacing:6px;color:var(--ink);margin-top:-6px}
+  .logo .l3{font-size:14px;color:var(--gray);margin-top:6px}
+  .logo .l3::before{content:"— ";color:var(--red)}
+
+  /* main card */
+  .card{
+    background:var(--card);border-radius:24px;padding:34px 28px 12px;
+    box-shadow:0 8px 30px rgba(0,0,0,.07);position:relative;overflow:hidden;
+  }
+  .gripper{
+    position:absolute;top:18px;right:-30px;width:260px;opacity:.9;pointer-events:none;
+  }
+  .name-kr{font-size:44px;font-weight:800;letter-spacing:8px}
+  .name-en{font-size:19px;color:var(--gray);letter-spacing:3px;font-weight:600;margin-top:2px}
+  .role{margin-top:22px;font-size:19px;font-weight:800;color:var(--red)}
+  .role .sep{color:#d9d5d5;font-weight:400;margin:0 8px}
+  .team{margin-top:8px;font-size:16px;color:var(--ink)}
+  .team .sep{color:#d9d5d5;margin:0 8px}
+  .divider{border:none;border-top:1px solid var(--line);margin:24px 0 4px}
+
+  .contact{list-style:none}
+  .contact li{
+    display:flex;align-items:center;gap:16px;padding:16px 0;
+    border-bottom:1px solid var(--line);font-size:17px;
+  }
+  .contact li:last-child{border-bottom:none}
+  .contact a{color:var(--ink);text-decoration:none}
+  .ico{
+    flex:0 0 40px;height:40px;border-radius:12px;background:var(--red);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .ico svg{width:20px;height:20px;fill:#fff}
+
+  /* action buttons */
+  .actions{
+    display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 0;
+  }
+  .act{
+    background:var(--card);border-radius:18px;padding:18px 16px;
+    display:flex;align-items:center;gap:13px;text-decoration:none;color:var(--ink);
+    box-shadow:0 2px 10px rgba(0,0,0,.05);border:none;cursor:pointer;text-align:left;
+    font-family:inherit;
+  }
+  .act:active{transform:scale(.98)}
+  .act .ico{border-radius:12px}
+  .act b{display:block;font-size:15.5px}
+  .act small{display:block;color:var(--gray);font-size:12.5px;margin-top:2px}
+
+  /* about */
+  .about{text-align:center;margin:34px 0 30px;padding:0 6px}
+  .about h2{font-size:21px;letter-spacing:1px}
+  .about h2 em{font-style:normal;color:var(--red)}
+  .about .bar{width:34px;height:3px;background:var(--red);margin:10px auto 14px;border-radius:2px}
+  .about p{font-size:14.5px;color:#4a4a4a;line-height:1.75}
+
+  /* footer */
+  footer{
+    background:#151515;color:#eee;border-radius:24px 24px 0 0;
+    padding:26px 24px 20px;max-width:520px;margin:0 auto;
+  }
+  footer .brand{font-weight:800;font-size:15px}
+  footer .brand em{font-style:normal;color:var(--red)}
+  footer .copy{color:#9a9a9a;font-size:12px;margin-top:6px}
+  footer hr{border:none;border-top:1px solid #333;margin:16px 0 12px}
+  footer .tag{text-align:center;color:#bbb;font-size:12.5px}
+  footer .tag em{font-style:normal;color:var(--red)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="lang"><button id="langBtn" onclick="toggleLang()"><span id="kr" class="on">KR</span> ｜ <span id="en">EN</span></button></div>
+
+  <div class="logo">
+    <div class="l1">AIDIN</div>
+    <div class="l2">ROBOTICS</div>
+    <div class="l3">Advanced Intelligent Robotics</div>
+  </div>
+
+  <div class="card">
+    <svg class="gripper" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="110" cy="95" r="78" fill="#D01F2E" opacity="0.06"/>
+      <circle cx="110" cy="95" r="78" fill="none" stroke="#D01F2E" stroke-width="1.5" stroke-dasharray="2 6" opacity="0.45"/>
+      <g fill="none" stroke="#8a8a8a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="82" y="42" width="58" height="34" rx="10" transform="rotate(12 111 59)"/>
+        <path d="M86 78 L74 122 L82 130 L96 92"/>
+        <path d="M118 84 L116 132 L126 136 L132 90"/>
+        <path d="M144 76 L158 116 L150 124 L136 90"/>
+        <circle cx="112" cy="60" r="7"/>
+      </g>
+      <text x="118" y="52" font-size="12" fill="#D01F2E" font-weight="700" transform="rotate(12 118 52)" font-family="sans-serif">AIDIN</text>
+    </svg>
+
+    <div class="name-kr" data-kr="전효종" data-en="HYOJONG">전효종</div>
+    <div class="name-en" data-kr="JEON HYOJONG" data-en="JEON">JEON HYOJONG</div>
+    <div class="role">
+      <span data-kr="연구원" data-en="Researcher">연구원</span><span class="sep">｜</span><span data-kr="공학박사" data-en="Ph.D. in Engineering">공학박사</span>
+    </div>
+    <div class="team">
+      <span data-kr="그리퍼개발팀" data-en="Gripper Development Team">그리퍼개발팀</span><span class="sep">｜</span><span data-kr="로봇부품사업부" data-en="Robot Components Division">로봇부품사업부</span>
+    </div>
+
+    <hr class="divider">
+
+    <ul class="contact">
+      <li>
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M17 1H7a2 2 0 0 0-2 2v18a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-5 20a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6ZM17 17H7V4h10v13Z"/></svg></span>
+        <a href="tel:010-2690-4997">010-2690-4997</a>
+      </li>
+      <li>
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.7.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.5.6 3.7.1.3 0 .7-.2 1l-2.3 2.1Z"/></svg></span>
+        <a href="tel:031-360-7926">031-360-7926</a>
+      </li>
+      <li>
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg></span>
+        <a href="mailto:hj.jeon@aidinrobotics.co.kr">hj.jeon@aidinrobotics.co.kr</a>
+      </li>
+      <li>
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg></span>
+        <span data-kr="경기도 안양시 동안구 시민대로327번길 12-20, 5층" data-en="5F, 12-20, Simin-daero 327beon-gil, Dongan-gu, Anyang-si, Gyeonggi-do">경기도 안양시 동안구 시민대로327번길 12-20, 5층</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="actions">
+    <a class="act" href="contact.vcf" download="JEON_HYOJONG.vcf">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 2c-3.3 0-8 1.7-8 5v1h16v-1c0-3.3-4.7-5-8-5Z"/></svg></span>
+      <span><b data-kr="연락처 저장" data-en="Save Contact">연락처 저장</b><small data-kr="vCard 저장" data-en="Download vCard">vCard 저장</small></span>
+    </a>
+    <a class="act" href="tel:010-2690-4997">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.7.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.9 21 3 13.1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.5.6 3.7.1.3 0 .7-.2 1l-2.3 2.1Z"/></svg></span>
+      <span><b data-kr="전화하기" data-en="Call">전화하기</b><small data-kr="바로 연결" data-en="Direct call">바로 연결</small></span>
+    </a>
+    <a class="act" href="mailto:hj.jeon@aidinrobotics.co.kr">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5v2Z"/></svg></span>
+      <span><b data-kr="이메일 보내기" data-en="Send Email">이메일 보내기</b><small data-kr="메일 앱 열기" data-en="Open mail app">메일 앱 열기</small></span>
+    </a>
+    <a class="act" href="https://www.aidinrobotics.co.kr" target="_blank" rel="noopener">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm7 9h-3a15 15 0 0 0-1.2-5.3A8 8 0 0 1 19 11ZM12 4c.9 1.2 1.7 3.5 1.9 7h-3.8c.2-3.5 1-5.8 1.9-7ZM5 13h3a15 15 0 0 0 1.2 5.3A8 8 0 0 1 5 13Zm4.2-7.3A15 15 0 0 0 8 11H5a8 8 0 0 1 4.2-5.3ZM12 20c-.9-1.2-1.7-3.5-1.9-7h3.8c-.2 3.5-1 5.8-1.9 7Zm2.8-1.7A15 15 0 0 0 16 13h3a8 8 0 0 1-4.2 5.3Z"/></svg></span>
+      <span><b data-kr="홈페이지 방문" data-en="Website">홈페이지 방문</b><small data-kr="공식 홈페이지" data-en="Official website">공식 홈페이지</small></span>
+    </a>
+    <a class="act" href="https://maps.google.com/?q=%EA%B2%BD%EA%B8%B0%EB%8F%84+%EC%95%88%EC%96%91%EC%8B%9C+%EB%8F%99%EC%95%88%EA%B5%AC+%EC%8B%9C%EB%AF%BC%EB%8C%80%EB%A1%9C327%EB%B2%88%EA%B8%B8+12-20" target="_blank" rel="noopener">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg></span>
+      <span><b data-kr="회사 위치" data-en="Location">회사 위치</b><small data-kr="지도에서 보기" data-en="Open in Maps">지도에서 보기</small></span>
+    </a>
+  </div>
+
+  <div class="about">
+    <h2>ABOUT <em>AIDIN</em> ROBOTICS</h2>
+    <div class="bar"></div>
+    <p data-kr="AIDIN ROBOTICS는 로봇 그리퍼 및 자동화 부품의 연구개발을 통해&#10;고객의 성공적인 혁신을 함께 만들어갑니다."
+       data-en="AIDIN ROBOTICS creates successful innovation together with customers through R&amp;D of robot grippers and automation components.">
+      AIDIN ROBOTICS는 로봇 그리퍼 및 자동화 부품의 연구개발을 통해<br>고객의 성공적인 혁신을 함께 만들어갑니다.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="brand"><em>AIDIN</em> ROBOTICS Inc.</div>
+  <div class="copy">© 2024 AIDIN ROBOTICS Inc. All rights reserved.</div>
+  <hr>
+  <div class="tag">Designed for a better future with <em>robotics</em>.</div>
+</footer>
+
+<script>
+let lang = "kr";
+function toggleLang(){
+  lang = lang === "kr" ? "en" : "kr";
+  document.getElementById("kr").className = lang==="kr" ? "on" : "";
+  document.getElementById("en").className = lang==="en" ? "on" : "";
+  document.querySelectorAll("[data-kr]").forEach(el=>{
+    const t = el.getAttribute("data-"+lang);
+    if(t.includes("\n")) el.innerHTML = t.replace(/\n/g,"<br>");
+    else el.textContent = t;
+  });
+  document.documentElement.lang = lang;
+}
+</script>
+</body>
+</html>
