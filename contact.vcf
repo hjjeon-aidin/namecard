@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+N;CHARSET=UTF-8:전;효종;;;
+FN;CHARSET=UTF-8:전효종 (Jeon Hyojong)
+ORG;CHARSET=UTF-8:AIDIN ROBOTICS Inc.;로봇부품사업부 그리퍼개발팀
+TITLE;CHARSET=UTF-8:연구원 / 공학박사
+TEL;TYPE=CELL:+82-10-2690-4997
+TEL;TYPE=WORK:+82-31-360-7926
+EMAIL;TYPE=WORK:hj.jeon@aidinrobotics.co.kr
+ADR;TYPE=WORK;CHARSET=UTF-8:;;시민대로327번길 12-20 5층;안양시 동안구;경기도;;대한민국
+URL:https://www.aidinrobotics.co.kr
+END:VCARD
